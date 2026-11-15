@@ -57,3 +57,21 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha
           platforms: linux/amd64,linux/arm64/v8
+
+  build-darwin:
+    runs-on: macos-latest
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v4
+
+      -
+        name: Build release binary
+        run: cargo build --locked --release
+
+      -
+        name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rathole-darwin
+          path: target/release/rathole
